@@ -1,10 +1,18 @@
 package com.cognizant.herobookapi.herobookapi;
 
+import com.cognizant.herobookapi.herobookapi.entity.Hero;
+import com.cognizant.herobookapi.herobookapi.service.HeroService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.io.File;
+import java.util.ArrayList;
+
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -16,10 +24,19 @@ public class HeroBookControllerTests {
     @Autowired
     MockMvc mockMvc;
 
+    @Autowired
+    HeroService heroService;
+
+    @Autowired
+    ObjectMapper objectMapper;
+
+    String herosJsonPath = "src/test/java/data/heros.json";
 
     @Test
     void contextLoads() {
     }
+
+    ArrayList<Hero> herosList;
 
     /**
      * Visitors
@@ -34,6 +51,11 @@ public class HeroBookControllerTests {
 
     @Test
     public void getAllHeroes() throws Exception {
+
+        File customersFile = new File(herosJsonPath);
+        herosList = objectMapper.readValue(customersFile, new TypeReference<ArrayList<Hero>>(){});
+        heroService.setHeroList(herosList);
+
         mockMvc.perform(get("/api/heroes"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0]").value("spider man"))
