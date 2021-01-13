@@ -7,8 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -22,6 +21,7 @@ public class VillianControllerTests {
      *
      * When I view all the villains
      * Then I can see names of all villain
+     * /api/villians -> 200  and all villians
      */
     @Test
     public void getAllVillians() throws Exception {
@@ -39,6 +39,7 @@ public class VillianControllerTests {
      * Given I have the name of a villain
      * When I retreive the villain
      * Then I can view all the details for that villain
+     * /api/villians/{villianName} -> 200 and villian details
      *
      * Given I have an incorrect villain name
      * When I retreive details for that villain
@@ -57,4 +58,18 @@ public class VillianControllerTests {
                 .andExpect(jsonPath("$.agility").value(true));
 
     }
+
+    /**
+     * Given I have an incorrect villain name
+     * When I retreive details for that villain
+     * Then I receive a message that it doesn't exist
+     * /api/villians/{villianName} -> 404 and error message
+     */
+    @Test
+    public void getVillianByName_NotFound() throws Exception {
+        mockMvc.perform(get("/api/villians/{villianName}", "abc"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("Villian not found"));
+    }
+
 }
