@@ -3,14 +3,13 @@ package com.cognizant.herobookapi.herobookapi.controllers;
 import com.cognizant.herobookapi.herobookapi.entity.Hero;
 import com.cognizant.herobookapi.herobookapi.service.HeroService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+
 
 @RestController
 public class HeroBookController {
@@ -19,8 +18,8 @@ public class HeroBookController {
     HeroService heroService;
 
     @GetMapping("/api/heroes")
-    public List<String> getAllHeroes() {
-        return heroService.getAllHeroes();
+    public ResponseEntity<Object> getAllHeroes() {
+        return new ResponseEntity<>(heroService.getAllHeroes(),HttpStatus.OK);
     }
 
     @GetMapping("/api/heroes/{heroName}")
