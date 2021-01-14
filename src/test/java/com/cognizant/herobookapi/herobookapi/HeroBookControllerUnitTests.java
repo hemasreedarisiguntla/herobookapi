@@ -3,11 +3,9 @@ package com.cognizant.herobookapi.herobookapi;
 import com.cognizant.herobookapi.herobookapi.controllers.HeroBookController;
 import com.cognizant.herobookapi.herobookapi.entity.Hero;
 import com.cognizant.herobookapi.herobookapi.service.HeroService;
-import com.cognizant.herobookapi.herobookapi.service.VillianService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,6 +17,7 @@ import java.util.ArrayList;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -69,6 +68,15 @@ public class HeroBookControllerUnitTests {
         mockMvc.perform(get("/api/heroes/{heroName}", "spider man"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.heroName").value("spider man"));
+    }
+
+    @Test
+    public void getAHeroeByName_NotFound() throws Exception {
+
+        when(heroService.getAHeroByName("spider man")).thenReturn(null);
+        mockMvc.perform(get("/api/heroes/{heroName}", "abc"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("Hero not found"));
     }
 
 }
