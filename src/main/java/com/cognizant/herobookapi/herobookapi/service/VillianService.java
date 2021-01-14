@@ -1,6 +1,5 @@
 package com.cognizant.herobookapi.herobookapi.service;
 
-import com.cognizant.herobookapi.herobookapi.entity.Hero;
 import com.cognizant.herobookapi.herobookapi.entity.Villian;
 import org.springframework.stereotype.Service;
 

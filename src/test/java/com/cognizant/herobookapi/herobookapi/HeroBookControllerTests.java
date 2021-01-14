@@ -1,20 +1,10 @@
 package com.cognizant.herobookapi.herobookapi;
 
-import com.cognizant.herobookapi.herobookapi.entity.Hero;
-import com.cognizant.herobookapi.herobookapi.service.HeroService;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -26,22 +16,6 @@ public class HeroBookControllerTests {
     @Autowired
     MockMvc mockMvc;
 
-    @Autowired
-    HeroService heroService;
-
-    @Autowired
-    ObjectMapper objectMapper;
-
-    String herosJsonPath = "src/test/java/data/heros.json";
-
-    @BeforeEach
-    void setup() throws IOException {
-        File heroesFile = new File(herosJsonPath);
-        herosList = objectMapper.readValue(heroesFile, new TypeReference<ArrayList<Hero>>(){});
-        heroService.setHeroList(herosList);
-    }
-
-    ArrayList<Hero> herosList;
 
     /**
      * Visitors

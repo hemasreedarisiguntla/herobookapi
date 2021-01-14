@@ -59,7 +59,7 @@ public class HeroBookControllerUnitTests {
     }
 
     @Test
-    public void getAHeroeByName() throws Exception {
+    public void getAHeroByName() throws Exception {
 
         File heroFile = new File(heroJsonPath);
         Hero hero = objectMapper.readValue(heroFile, new TypeReference<Hero>(){});
@@ -71,7 +71,7 @@ public class HeroBookControllerUnitTests {
     }
 
     @Test
-    public void getAHeroeByName_NotFound() throws Exception {
+    public void getAHeroByName_NotFound() throws Exception {
 
         when(heroService.getAHeroByName("spider man")).thenReturn(null);
         mockMvc.perform(get("/api/heroes/{heroName}", "abc"))
