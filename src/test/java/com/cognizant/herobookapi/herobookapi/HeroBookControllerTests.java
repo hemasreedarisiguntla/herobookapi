@@ -4,6 +4,7 @@ import com.cognizant.herobookapi.herobookapi.entity.Hero;
 import com.cognizant.herobookapi.herobookapi.service.HeroService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -32,8 +34,11 @@ public class HeroBookControllerTests {
 
     String herosJsonPath = "src/test/java/data/heros.json";
 
-    @Test
-    void contextLoads() {
+    @BeforeEach
+    void setup() throws IOException {
+        File customersFile = new File(herosJsonPath);
+        herosList = objectMapper.readValue(customersFile, new TypeReference<ArrayList<Hero>>(){});
+        heroService.setHeroList(herosList);
     }
 
     ArrayList<Hero> herosList;
@@ -52,11 +57,7 @@ public class HeroBookControllerTests {
     @Test
     public void getAllHeroes() throws Exception {
 
-        File customersFile = new File(herosJsonPath);
-        herosList = objectMapper.readValue(customersFile, new TypeReference<ArrayList<Hero>>(){});
-        heroService.setHeroList(herosList);
-
-        mockMvc.perform(get("/api/heroes"))
+       mockMvc.perform(get("/api/heroes"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0]").value("spider man"))
                 .andExpect(jsonPath("$[1]").value("bat man"));
@@ -79,6 +80,7 @@ public class HeroBookControllerTests {
      */
     @Test
     public void getAHeroByName() throws Exception {
+
         mockMvc.perform(get("/api/heroes/{heroName}", "spider man"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.heroName").value("spider man"))
@@ -92,7 +94,7 @@ public class HeroBookControllerTests {
 
     @Test
     public void getAHeroByNameNotFound() throws Exception {
-        mockMvc.perform(get("/api/heroes/{heroName}", "bat man"))
+        mockMvc.perform(get("/api/heroes/{heroName}", "wonder woman"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("Hero not found"));
     }

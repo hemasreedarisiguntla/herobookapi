@@ -19,11 +19,7 @@ public class HeroService {
     }
 
     public Hero getAHeroByName(String heroName) throws Exception {
-        List<Hero> heroList = new ArrayList<>();
-        heroList.add(new Hero("www.disney.com/spiderman.jpg", "Peter", "spider man",
-                6.1, 75.0, "climbing", "10", 100, 600, 180, true, "saves world", "Hero"));
-
-        return heroList.stream().filter(hero -> heroName.equals(hero.getHeroName())).findAny().orElse(null);
+        return herosList.stream().filter(hero -> heroName.equals(hero.getHeroName())).findAny().orElse(null);
     }
 
     public void setHeroList(ArrayList<Hero> herosList) {
