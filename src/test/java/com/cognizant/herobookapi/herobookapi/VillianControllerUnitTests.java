@@ -39,4 +39,14 @@ public class VillianControllerUnitTests {
                 .andExpect(jsonPath("$", hasSize(0)));
     }
 
+    @Test
+    public void getAllVillians_size_one() throws Exception {
+        villainsList = new ArrayList<>();
+        villainsList.add("osborne");
+        when(villianService.getAllVillians()).thenReturn(villainsList);
+        mockMvc.perform(get("/api/villians"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)));
+    }
+
 }
