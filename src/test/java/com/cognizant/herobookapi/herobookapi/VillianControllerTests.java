@@ -51,7 +51,7 @@ public class VillianControllerTests {
         mockMvc.perform(get("/api/villians/{villianName}", "osborne"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.heroName").value("osborne"))
-                .andExpect(jsonPath("$.realName").value("Peter"))
+                .andExpect(jsonPath("$.realName").value("green"))
                 .andExpect(jsonPath("$.image").value("www.disney.com/villian.jpg"))
                 .andExpect(jsonPath("$.height").value(6.1))
                 .andExpect(jsonPath("$.strength").value(100))

@@ -1,0 +1,34 @@
+[
+  {
+    "archRival": "osborne",
+    "image":"www.disney.com/villian.jpg",
+    "realName":"green",
+    "heroName":"osborne",
+    "height":6.1,
+    "weight":75.0,
+    "specialPower":"climbing",
+    "intelligence":"10",
+    "strength":100,
+    "power":600,
+    "speed":180,
+    "agility":true,
+    "description":"destroys world",
+    "story":"Hero"
+  },
+  {
+    "archRival": "joker",
+    "image":"www.disney.com/joker.jpg",
+    "realName":"green",
+    "heroName":"joker",
+    "height":6.1,
+    "weight":75.0,
+    "specialPower":"laughing",
+    "intelligence":"10",
+    "strength":100,
+    "power":600,
+    "speed":180,
+    "agility":true,
+    "description":"destroys world",
+    "story":"Hero"
+  }
+]

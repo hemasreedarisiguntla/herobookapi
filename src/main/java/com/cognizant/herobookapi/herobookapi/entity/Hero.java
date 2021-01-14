@@ -1,8 +1,5 @@
 package com.cognizant.herobookapi.herobookapi.entity;
 
-import lombok.*;
-
-
 public class Hero {
 
     private String image;
