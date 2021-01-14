@@ -36,8 +36,8 @@ public class HeroBookControllerTests {
 
     @BeforeEach
     void setup() throws IOException {
-        File customersFile = new File(herosJsonPath);
-        herosList = objectMapper.readValue(customersFile, new TypeReference<ArrayList<Hero>>(){});
+        File heroesFile = new File(herosJsonPath);
+        herosList = objectMapper.readValue(heroesFile, new TypeReference<ArrayList<Hero>>(){});
         heroService.setHeroList(herosList);
     }
 

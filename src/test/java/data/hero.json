@@ -1,0 +1,15 @@
+{
+    "image":"www.disney.com/spiderman.jpg",
+    "realName":"Peter",
+    "heroName":"spider man",
+    "height":6.1,
+    "weight":75.0,
+    "specialPower":"climbing",
+    "intelligence":"10",
+    "strength":100,
+    "power":600,
+    "speed":180,
+    "agility":true,
+    "description":"saves world",
+    "story":"Spiderman"
+  }
